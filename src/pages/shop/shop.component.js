@@ -1,23 +1,25 @@
 import { Component } from 'react';
 import './shop.styles.scss';
 import SHOP_DATA from './shop.data'
+import ShopList from '../../components/shop-list/shop-list.component';
 
 class Shop extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
-       
+        this.state = {
+            sections: SHOP_DATA,
+        };
     }
+    
     render() {
         return (
             <div>
-                <p>SHOP PAGE</p>  
+                <p>SHOP PAGE</p>
                 {
-                    SHOP_DATA.map(({id, title}) => (
-                        <p key={id}>{title}</p>
+                    this.state.sections.map(({ id, ...otherProps }) => (                
+                        <ShopList key={id} {...otherProps} />
                     ))
                 }
-                );
             </div>
         )
     }
