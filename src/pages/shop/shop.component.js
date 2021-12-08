@@ -14,7 +14,6 @@ class Shop extends Component {
     render() {
         return (
             <div>
-                <p>SHOP PAGE</p>
                 {
                     this.state.sections.map(({ id, ...otherProps }) => (                
                         <ShopList key={id} {...otherProps} />
