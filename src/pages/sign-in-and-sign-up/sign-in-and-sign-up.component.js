@@ -4,8 +4,10 @@ import './sign-in-and-sign-up.styles.scss';
 
 const SignInAndSignUp = () => {
     return (
-        <div> 
+        <div className="sign-in-and-sign-up"> 
             <SignUp />
+            <SignIn />
+            
         </div>
     );
 }
