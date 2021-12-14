@@ -3,13 +3,14 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 import './sign-up.styles.scss';
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 class SignUp extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      username: '',
+      displayName: '',
       email: '',
       password: '',
       confirmPassword: ''
@@ -17,22 +18,35 @@ class SignUp extends React.Component {
 
   }
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
 
-    const { password, confirmPassword } = this.state;
+    const { displayName, email,  password, confirmPassword } = this.state;
 
     if (password !== confirmPassword) {
       alert("passwords don't match");
       return;
     }
 
-      this.setState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      });
+      try {
+        const { user } = await auth.createUserWithEmailAndPassword(
+          email, password
+        )
+
+        await createUserProfileDocument( user, { displayName })
+
+        this.setState({
+          displayName: '',
+          email: '',
+          password: '',
+          confirmPassword: ''
+        });
+        
+      } catch (error) {
+        
+      }
+
+      
   };
 
   handleChange = event => {
@@ -42,7 +56,7 @@ class SignUp extends React.Component {
   };
 
   render() {
-    const { username, email, password, confirmPassword } = this.state;
+    const { displayName, email, password, confirmPassword } = this.state;
     return (
       <div className='sign-up'>
         <h2 className='title'>I do not have an account</h2>
@@ -50,8 +64,8 @@ class SignUp extends React.Component {
         <form className='sign-up-form' onSubmit={ this.handleSubmit }>
           <FormInput
             type='text'
-            name='username'
-            value={ username }
+            name='displayName'
+            value={ displayName }
             onChange={ this.handleChange }
             label='Display Name'
             required
