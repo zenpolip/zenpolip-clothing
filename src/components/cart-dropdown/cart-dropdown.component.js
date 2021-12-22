@@ -4,6 +4,7 @@ import CartItem from '../cart-item/cart-item.component';
 import CustomButton from '../custom-button/custom-button.component';
 import './cart-dropdown.styles.scss';
 import { selectCartItem } from '../../redux/cart/cart.selector';
+import { Link } from 'react-router-dom';
 
 const CartDropdown = ({ cartItems }) => {
     return (
@@ -20,7 +21,7 @@ const CartDropdown = ({ cartItems }) => {
                         )
                 }
             </div>
-            <CustomButton>GO TO CHECKOUT</CustomButton>
+            <Link to="/checkout"><CustomButton>GO TO CHECKOUT</CustomButton></Link>
         </div>
     );
 }
